@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .mode2{
+            background-color: white;
+        }
+        .line-through {
+            text-decoration: line-through;
+        }
+
+        .task {
+            cursor: pointer;
+            /* color: red; */
+        }
+       button{
+        margin: 10px;
+       }
+       img{
+        height: 50px;
+        width:50px;
+        float:right;
+       }
+       .mode{
+        background-color: black;
+        color: white;
+       }
+    </style>
+</head>
+
+<body>
+    <div>
+        <img src="images/dark.png" onclick="change()">
+        <h1>To-Do List</h1>
+        <input type="text" placeholder="Add List">
+        <button type="button" onclick="call()">Add</button>
+        <p>After Complete Your To-do List .Click the list to strike out</p>
+        <ul>
+
+        </ul>
+    </div>
+
+    <script>
+        var input = document.querySelector("input");
+        var bt = document.querySelector("button");
+        var div = document.querySelector("ul");
+
+        function call() {
+            try {
+                if (input.value == '') {
+                    throw "Empty List";
+                }
+                else {
+                    set = 0;
+                }
+            }
+            catch (er) {
+                alert(er);
+                var set = 1;
+                // call();
+            }
+            if (set != 1) {
+            var list;
+            var len;
+            var span;
+            list = document.createElement("li");
+            span = document.createElement("span");
+            span.innerHTML = input.value;
+            span.setAttribute("class", "task");
+            var edit = document.createElement("button");
+            edit.textContent = "Edit";
+            var del = document.createElement("button");
+            del.textContent = "Delete";
+            list.appendChild(span);
+            list.appendChild(edit);
+            list.appendChild(del);
+            div.appendChild(list);
+
+
+
+            input.value = "";
+            console.log(list);
+
+            edit.addEventListener("click", function () {
+                
+                var msg = prompt("Edit Your List");
+                span.textContent = msg;
+                span.setAttribute("class", "task");
+            });
+
+
+            span.addEventListener("click", function () {
+                this.setAttribute("class", "task line-through");
+
+            });
+
+            del.addEventListener("click", function () {
+                div.removeChild(list);
+            });
+        }
+
+
+        }
+        var col=0;
+        function change(){
+            var image=document.querySelector("body");
+            if(col%2==0){
+            image.setAttribute("class","mode");
+            col++;
+            }
+            else{
+            image.setAttribute("class","mode2");
+            col++;
+            }
+            if(col==2){
+                col=0;
+            }
+        }
+
+    </script>
+</body>
+
+</html>
